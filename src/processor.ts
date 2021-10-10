@@ -6,21 +6,21 @@ import type {Payload} from './';
 
 const manifest = require('../package.json');
 
-export default async ({item}: Payload, {progress, result, appVersion}: ProcessorUtils) => {
-	const filename = Path.basename(item.path);
+export default async ({input}: Payload, {progress, output, appVersion}: ProcessorUtils) => {
+	const filename = Path.basename(input.path);
 
 	const response = await got
 		.put(`https://transfer.sh/${filename}`, {
 			headers: {
 				'user-agent': `Drovp/${appVersion} ${manifest.name}/${manifest.version}`,
 			},
-			body: FS.createReadStream(item.path),
+			body: FS.createReadStream(input.path),
 		})
 		.on('uploadProgress', ({transferred, total}) => progress(transferred, total));
 
 	if (response.statusCode === 200) {
-		result.url(response.body);
+		output.url(response.body);
 	} else {
-		result.error(`${response.statusCode}: ${response.statusMessage || response.body}`);
+		output.error(`${response.statusCode}: ${response.statusMessage || response.body}`);
 	}
 };

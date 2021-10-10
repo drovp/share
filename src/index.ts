@@ -12,6 +12,5 @@ export default (plugin: Plugin) => {
 		description: 'Upload a file and get a URL to share with others.',
 		accepts: acceptsFlags,
 		threadType: 'upload',
-		parallelize: true,
 	});
 };
