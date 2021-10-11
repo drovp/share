@@ -1,6 +1,6 @@
 {
 	"name": "@drovp/share",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Upload a file and get a URL to share with others.",
 	"main": "dist/index.js",
 	"keywords": [
